@@ -1,3 +1,7 @@
+; .xyzzyファイルをlisp-modeで開く
+(pushnew '(".xyzzy" . lisp-mode) *auto-mode-alist* :test 'equal)
+
+; isearch
 (require "isearch")
 (global-set-key #\C-s 'isearch-forward)
 (global-set-key #\C-r 'isearch-backward)
