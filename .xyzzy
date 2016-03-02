@@ -5,3 +5,9 @@
 (require "isearch")
 (global-set-key #\C-s 'isearch-forward)
 (global-set-key #\C-r 'isearch-backward)
+
+; diff
+(let ((path-diff "H:/Tool/diff272w/diff.exe"))
+  (setq ed::*diff-command-name*
+	(map-slash-to-backslash path-diff)))
+
