@@ -6,8 +6,30 @@
 (global-set-key #\C-s 'isearch-forward)
 (global-set-key #\C-r 'isearch-backward)
 
+; dabbrev
+(require "dabbrev")
+(global-set-key #\M-/ 'dabbrev-expand)
+
 ; diff
 (let ((path-diff "H:/Tool/diff272w/diff.exe"))
   (setq ed::*diff-command-name*
 	(map-slash-to-backslash path-diff)))
+
+; ƒŠ[ƒWƒ‡ƒ“‚ğ–Ú—§‚½‚¹‚é
+(let ((region-running nil)
+      (activate-region-commands (list #'set-mark-command))
+      (deactivate-region-commands (list #'copy-region-as-kill
+					#'kill-region
+					#'quit)))
+  (add-hook '*post-command-hook*
+	    (lambda ()
+	      (let ((fn (symbol-function *this-command*)))
+		(cond ((member fn activate-region-commands :test #'equal)
+		       (setf region-running t))
+		      ((member fn deactivate-region-commands :test #'equal)
+		       (setf region-running nil)))
+		(delete-text-attributes 'mytag)
+		(when region-running
+		  (set-text-attribute (mark) (point) 'mytag
+				      :background 1))))))
 
