@@ -1,6 +1,9 @@
 ; .xyzzyファイルをlisp-modeで開く
 (pushnew '(".xyzzy" . lisp-mode) *auto-mode-alist* :test 'equal)
 
+; lisp-mode
+(setf *lisp-indent-tabs-mode* nil)
+
 ; isearch
 (require "isearch")
 (global-set-key #\C-s 'isearch-forward)
@@ -13,23 +16,23 @@
 ; diff
 (let ((path-diff "H:/Tool/diff272w/diff.exe"))
   (setq ed::*diff-command-name*
-	(map-slash-to-backslash path-diff)))
+    (map-slash-to-backslash path-diff)))
 
 ; リージョンを目立たせる
 (let ((region-running nil)
       (activate-region-commands (list #'set-mark-command))
       (deactivate-region-commands (list #'copy-region-as-kill
-					#'kill-region
-					#'quit)))
+                                        #'kill-region
+                                        #'quit)))
   (add-hook '*post-command-hook*
-	    (lambda ()
-	      (let ((fn (symbol-function *this-command*)))
-		(cond ((member fn activate-region-commands :test #'equal)
-		       (setf region-running t))
-		      ((member fn deactivate-region-commands :test #'equal)
-		       (setf region-running nil)))
-		(delete-text-attributes 'mytag)
-		(when region-running
-		  (set-text-attribute (mark) (point) 'mytag
-				      :background 1))))))
+            (lambda ()
+              (let ((fn (symbol-function *this-command*)))
+                (cond ((member fn activate-region-commands :test #'equal)
+                       (setf region-running t))
+                      ((member fn deactivate-region-commands :test #'equal)
+                       (setf region-running nil)))
+                (delete-text-attributes 'mytag)
+                (when region-running
+                  (set-text-attribute (mark) (point) 'mytag
+                                      :background 1))))))
 
