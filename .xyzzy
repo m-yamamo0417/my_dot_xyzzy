@@ -32,7 +32,8 @@
                       ((member fn deactivate-region-commands :test #'equal)
                        (setf region-running nil)))
                 (delete-text-attributes 'mytag)
-                (when region-running
-                  (set-text-attribute (mark) (point) 'mytag
+                (when (and region-running
+                           (setq point-mark (mark t)))
+                  (set-text-attribute point-mark (point) 'mytag
                                       :background 1))))))
 
