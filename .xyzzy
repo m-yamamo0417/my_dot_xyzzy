@@ -12,6 +12,7 @@
 ; dabbrev
 (require "dabbrev")
 (global-set-key #\M-/ 'dabbrev-expand)
+(global-set-key #\M-\\ 'dabbrev-popup)
 
 ; diff
 (let ((path-diff "H:/Tool/diff272w/diff.exe"))
