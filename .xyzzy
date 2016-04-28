@@ -37,3 +37,16 @@
                   (set-text-attribute point-mark (point) 'mytag
                                       :background 1))))))
 
+; ホームディレクトリから開始
+(set-default-directory (user-homedir-pathname))
+
+; 日付を一発で挿入
+(defun insert-date()
+  (interactive)
+  (insert (format-date-string "%Y/%m/%d")))
+(defun insert-time()
+  (interactive)
+  (insert (format-date-string "%H:%M:%S")))
+
+(global-set-key '(#\C-c #\i #\d) 'insert-date)
+(global-set-key '(#\C-c #\i #\t) 'insert-time)
