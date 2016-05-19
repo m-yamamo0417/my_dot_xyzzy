@@ -51,3 +51,7 @@
 
 (global-set-key '(#\C-c #\i #\d) 'insert-date)
 (global-set-key '(#\C-c #\i #\t) 'insert-time)
+
+; Undo/Redo
+(global-set-key '(#\C-\\) 'undo)
+(global-set-key '(#\C-u #\C-\\) 'redo)
